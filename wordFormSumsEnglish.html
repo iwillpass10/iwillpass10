@@ -1,0 +1,83 @@
+<html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Offline Quiz</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+        .question {
+          display: none;
+          margin-bottom: 20px;
+        }
+        .current {
+          display: block;
+        }
+      </style>
+    </head>
+    <body>
+      <form id="quizForm">
+        <div class="question current">
+          <p>
+            1.Tom has a collection of 64 marbles. He wants to arrange them into
+            bags such that each bag has an equal number of marbles, and no
+            marble is left out. If he wants to have the maximum number of bags
+            possible, how many marbles will be in each bag?
+          </p>
+          <input type="radio" name="q1" value="a" /> a) 1 marble.<br />
+          <input type="radio" name="q1" value="b" /> b) 4 Marbles.<br />
+          <input type="radio" name="q1" value="c" /> c) 5 Marbles.<br />
+        </div>
+        <div class="question">
+          <p>
+            2.There are 36 cookies to be shared equally among 6 children. If
+            each child gets the same number of cookies, how many cookies will
+            each child receive?
+          </p>
+          <input type="radio" name="q2" value="a" /> a) each child will receive
+          6 cookies.<br />
+          <input type="radio" name="q2" value="b" /> b) each child will receive
+          5 cookies.<br />
+          <input type="radio" name="q2" value="c" /> c) each child will receive
+          1 cookie.<br />
+        </div>
+        <!-- Add more questions here -->
+
+        <button type="button" onclick="submitQuiz()">Submit Answer</button>
+      </form>
+
+      <script>
+        var currentQuestion = 1;
+
+        function submitQuiz() {
+          var form = document.getElementById("quizForm");
+          var answers = {};
+          var questions = form.getElementsByClassName("question");
+          var currentAnswer = form.querySelector(
+            'input[name="q' + currentQuestion + '"]:checked'
+          );
+          if (currentAnswer) {
+            answers["q" + currentQuestion] = currentAnswer.value;
+            currentQuestion++;
+            for (var i = 0; i < questions.length; i++) {
+              questions[i].classList.remove("current");
+            }
+            if (currentQuestion <= questions.length) {
+              questions[currentQuestion - 1].classList.add("current");
+            } else {
+              console.log(answers);
+              alert("Quiz submitted!");
+              form.reset();
+              currentQuestion = 1;
+              questions[0].classList.add("current");
+            }
+          } else {
+            alert("Please select an answer before submitting.");
+          }
+        }
+      </script>
+    </body>
+  </html>
+</html>

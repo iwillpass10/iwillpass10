@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit Converter</title>
+    <style>
+      .container {
+        margin: 20px;
+      }
+      .question {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Unit Converter Question Form</h2>
+      <form id="quizForm" onsubmit="return checkAnswers()">
+        <div class="question">
+          <label for="mmToCm">Convert mm to cm:</label>
+          <input type="number" id="mmToCm" name="mmToCm" readonly />
+          <span>mm</span> =
+          <input type="number" id="mmToCmAnswer" name="mmToCmAnswer" required />
+          <span>cm</span>
+        </div>
+        <div class="question">
+          <label for="mToKm">Convert m to km:</label>
+          <input type="number" id="mToKm" name="mToKm" readonly />
+          <span>m</span> =
+          <input type="number" id="mToKmAnswer" name="mToKmAnswer" required />
+          <span>km</span>
+        </div>
+        <button type="submit">Submit</button>
+        <div id="result"></div>
+      </form>
+    </div>
+
+    <script>
+      function getRandomNumber() {
+        return Math.floor(Math.random() * 1000) + 1;
+      }
+
+      function populateQuestions() {
+        document.getElementById("mmToCm").value = getRandomNumber();
+        document.getElementById("mToKm").value = getRandomNumber();
+      }
+
+      function checkAnswers() {
+        var mmToCmInput = parseFloat(document.getElementById("mmToCm").value);
+        var mmToCmAnswer = parseFloat(
+          document.getElementById("mmToCmAnswer").value
+        );
+        var mToKmInput = parseFloat(document.getElementById("mToKm").value);
+        var mToKmAnswer = parseFloat(
+          document.getElementById("mToKmAnswer").value
+        );
+        var resultDiv = document.getElementById("result");
+
+        var mmToCmConverted = mmToCmInput / 10;
+        var mToKmConverted = mToKmInput / 1000;
+        var correct = true;
+
+        if (mmToCmConverted.toFixed(2) !== mmToCmAnswer.toFixed(2)) {
+          resultDiv.innerHTML = "Conversion of mm to cm is incorrect.<br>";
+          correct = false;
+        }
+        if (mToKmConverted.toFixed(2) !== mToKmAnswer.toFixed(2)) {
+          resultDiv.innerHTML += "Conversion of m to km is incorrect.<br>";
+          correct = false;
+        }
+
+        if (correct) {
+          resultDiv.innerHTML = "All answers are correct!";
+        }
+
+        return false; // Prevent form submission
+      }
+
+      window.onload = populateQuestions;
+    </script>
+  </body>
+</html>

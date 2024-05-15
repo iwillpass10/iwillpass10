@@ -1,0 +1,83 @@
+<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<titl>Math problems</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    #quizForm {
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Arithmetic Expressions Quiz</h2>
+
+<form id="quizForm">
+    <div id="question"></div>
+    <input type="number" id="answer" placeholder="Enter your answer">
+    <button type="button" onclick="checkAnswer()">Check Answer</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+var questionCount = 0;
+
+function generateQuestion() {
+    var operators = ['+', '-', '×', '÷'];
+    var operator = operators[Math.floor(Math.random() * operators.length)];
+    var num1 = Math.floor(Math.random() * 9000) + 1000;
+    var num2 = Math.floor(Math.random() * 9000) + 1000;
+
+    var question = num1 + ' ' + operator + ' ' + num2 + ' = ';
+    document.getElementById('question').textContent = question;
+}
+
+function checkAnswer() {
+    var answer = parseInt(document.getElementById('answer').value);
+    var question = document.getElementById('question').textContent;
+
+    var parts = question.split(' ');
+    var num1 = parseInt(parts[0]);
+    var operator = parts[1];
+    var num2 = parseInt(parts[2]);
+    
+    var correctAnswer;
+    if (operator === '+') {
+        correctAnswer = num1 + num2;
+    } else if (operator === '-') {
+        correctAnswer = num1 - num2;
+    } else if (operator === '×') {
+        correctAnswer = num1 * num2;
+    } else if (operator === '÷') {
+        correctAnswer = Math.floor(num1 / num2);
+    }
+
+    var resultDiv = document.getElementById('result');
+    if (answer === correctAnswer) {
+        resultDiv.textContent = "Correct!";
+    } else {
+        resultDiv.textContent = "Incorrect!";
+    }
+
+    questionCount++;
+    if (questionCount < 10) {
+        // Generate a new question
+        generateQuestion();
+    } else {
+        resultDiv.textContent = "Quiz Completed!";
+        document.getElementById('quizForm').innerHTML = ''; // Remove the form
+    }
+}
+
+// Start the quiz
+generateQuestion();
+</script>
+
+</body>
+</html>

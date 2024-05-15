@@ -1,0 +1,92 @@
+<html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Prime Numbers</title>
+      <style>
+        .container {
+          margin: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h2>Prime Number</h2>
+        <form id="quizForm" onsubmit="return checkAnswer()">
+          <p>Is the number <span id="number"></span> prime?</p>
+          <input type="hidden" id="hiddenNumber" name="hiddenNumber" />
+          <label>
+            <input type="radio" name="answer" value="true" /> Prime
+          </label>
+          <label>
+            <input type="radio" name="answer" value="false" /> Not Prime
+          </label>
+          <button type="submit">Submit</button>
+          <p id="result"></p>
+        </form>
+      </div>
+
+      <script>
+        function getRandomNumber() {
+          return Math.floor(Math.random() * 60) + 1;
+        }
+
+        function generateQuestion() {
+          var number = getRandomNumber();
+          document.getElementById("number").textContent = number;
+          document.getElementById("hiddenNumber").value = number;
+        }
+
+        function checkAnswer() {
+          event.preventDefault();
+          var userAnswer =
+            document.querySelector('input[name="answer"]:checked').value ===
+            "true";
+          var number = parseInt(document.getElementById("hiddenNumber").value);
+          var isPrime = true;
+
+          if (number <= 1) {
+            isPrime = false;
+          } else if (number === 2) {
+            isPrime = true;
+          } else if (number % 2 === 0) {
+            isPrime = false;
+          } else {
+            for (var i = 3; i <= Math.sqrt(number); i += 2) {
+              if (number % i === 0) {
+                isPrime = false;
+                break;
+              }
+            }
+          }
+
+          var resultDiv = document.getElementById("result");
+          if (userAnswer === isPrime) {
+            resultDiv.textContent =
+              "Correct! " +
+              number +
+              " is " +
+              (isPrime ? "prime" : "not prime") +
+              ".";
+          } else {
+            resultDiv.textContent =
+              "Incorrect! " +
+              number +
+              " is " +
+              (isPrime ? "prime" : "not prime") +
+              ".";
+          }
+
+          setTimeout(function () {
+            resultDiv.textContent = "";
+            generateQuestion();
+          }, 1000);
+          return false;
+        }
+
+        window.onload = generateQuestion;
+      </script>
+    </body>
+  </html>
+</html>

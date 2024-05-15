@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Quiz</title>
+    <style>
+      /* Add your CSS styles here */
+    </style>
+  </head>
+  <body>
+    <h1>Math Quiz</h1>
+    <div id="quiz">
+      <h2 id="questionNumber">Question 1:</h2>
+      <p id="question"></p>
+      <input type="text" id="answer" />
+      <button onclick="checkAnswerAndDisplayFeedback()">Submit Answer</button>
+      <p id="feedback"></p>
+    </div>
+
+    <script>
+      // Function to generate random numbers between min and max
+      function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      // Generate random 2-digit addition, subtraction, multiplication, or division question
+      function generateQuestion() {
+        let num1 = getRandomNumber(10, 99);
+        let num2 = getRandomNumber(10, 99);
+        let operator = getRandomNumber(1, 4); // 1: addition, 2: subtraction, 3: multiplication, 4: division
+
+        switch (operator) {
+          case 1:
+            return { question: num1 + " + " + num2, answer: num1 + num2 };
+          case 2:
+            return { question: num1 + " - " + num2, answer: num1 - num2 };
+          case 3:
+            return { question: num1 + " * " + num2, answer: num1 * num2 };
+          case 4:
+            return { question: num1 * num2 + " ÷ " + num2, answer: num1 };
+        }
+      }
+
+      // Function to start the quiz
+      function startQuiz() {
+        let currentQuestion = 1;
+        let correctAnswers = 0;
+        let totalQuestions = 20; // Set the total number of questions
+
+        function displayQuestion() {
+          if (currentQuestion > totalQuestions) {
+            document.getElementById("quiz").innerHTML =
+              "<h2>Quiz Completed</h2><p>You answered " +
+              correctAnswers +
+              " out of " +
+              totalQuestions +
+              " questions correctly.</p>";
+          } else {
+            let { question, answer } = generateQuestion();
+            document.getElementById("questionNumber").innerText =
+              "Question " + currentQuestion + ":";
+            document.getElementById("question").innerText = question;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").innerText = "";
+            document.getElementById("answer").focus();
+          }
+        }
+
+        window.checkAnswerAndDisplayFeedback = function () {
+          let userAnswer = parseInt(document.getElementById("answer").value);
+          let { answer: correctAnswer } = generateQuestion(); // Get the correct answer for comparison
+          if (userAnswer === correctAnswer) {
+            document.getElementById("feedback").innerText = "Correct!";
+            correctAnswers++;
+          } else {
+            document.getElementById("feedback").innerText = "Incorrect!";
+          }
+          currentQuestion++;
+          displayQuestion(); // Display next question or end quiz if limit reached
+        };
+
+        displayQuestion();
+      }
+
+      startQuiz();
+    </script>
+  </body>
+</html>

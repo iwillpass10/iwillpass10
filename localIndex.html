@@ -1,0 +1,88 @@
+<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        body {
+            font-family: Times New Roman,times new roman;
+            text-align: center;
+            padding: 20px;
+            background-image: url('C:\Users\fazal\OneDrive\Desktop'); /* Replace 'background_image.jpg' with your image file */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            background-color:
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+        }
+        p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 24px;
+            padding: 20px 40px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #66BB6A;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #80DEEA;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Welcome to Maths World</h1>
+
+    <!-- English Instructions -->
+    <h2>English Instructions:</h2>
+    <p>Tap on the buttons below to take the Maths Problems.</p>
+
+    <!-- Kannada Instructions -->
+    <h2>Kannada ಮಾಹಿತಿಗಳು:</h2>
+    <p>ಗಣಿತದ ಸಮಸ್ಯೆಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಲು ಕೆಳಗಿನ ಬಟನ್‌ಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</p>
+
+    <!-- Giant Buttons for Each Quiz -->
+    <div>
+        <button onclick="loadQuiz('twodigit sums.html')">Two digit sums</button>
+        <button onclick="loadQuiz('unit converter.html')">Unit Converter</button>
+        <button onclick="loadQuiz('word form sums kannada.html')">Kannada Lang Word Sums</button>
+        <button onclick="loadQuiz('prime.html')">Prime Numbers</button>
+        <button onclick="loadQuiz('ascending & descending sums.html')">Ascending & Descending 
+</button>
+<button onclick="loadQuiz('4 digit calculation sums.html')">Four Digit Sums</button>
+
+
+    </div>
+
+    
+<!-- Script to Load Quiz -->
+<script>
+function loadQuiz(quizFileName) {
+    window.location.href = quizFileName;
+}
+
+function backToMainPage() {
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

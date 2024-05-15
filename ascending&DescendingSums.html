@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ascending & Descending Number Sums</title>
+    <style>
+      .container {
+        margin: 20px;
+      }
+      .question {
+        margin-bottom: 20px;
+      }
+      .answer-input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Ascending & Descending Number Sums</h2>
+      <form id="quizForm">
+        <div class="question" id="question1">
+          <label for="ascendingNumbers"
+            >Order the Ascending Numbers (1 to 50):</label
+          >
+          <p id="ascendingNumbers"></p>
+          <input
+            type="text"
+            id="ascendingOrder"
+            name="ascendingOrder"
+            class="answer-input"
+            placeholder="Enter the correct order"
+            required
+          />
+        </div>
+        <div class="question" id="question2">
+          <label for="descendingNumbers"
+            >Order the Descending Numbers (50 to 1):</label
+          >
+          <p id="descendingNumbers"></p>
+          <input
+            type="text"
+            id="descendingOrder"
+            name="descendingOrder"
+            class="answer-input"
+            placeholder="Enter the correct order"
+            required
+          />
+        </div>
+        <button type="button" onclick="generateNumbers()">
+          Generate Numbers
+        </button>
+        <br /><br />
+        <button type="button" onclick="checkAnswers()">Submit</button>
+        <br /><br />
+        <div id="result" style="display: none"></div>
+      </form>
+    </div>
+
+    <script>
+      function generateNumbers() {
+        var ascendingNumbers = new Set();
+        var descendingNumbers = new Set();
+        while (ascendingNumbers.size < 5) {
+          var num = getRandomNumber(1, 50);
+          ascendingNumbers.add(num);
+          descendingNumbers.add(51 - num);
+        }
+
+        document.getElementById("ascendingNumbers").textContent = [
+          ...ascendingNumbers,
+        ].join(", ");
+        document.getElementById("descendingNumbers").textContent = [
+          ...descendingNumbers,
+        ].join(", ");
+        document.getElementById("question1").style.display = "block";
+        document.getElementById("question2").style.display = "block";
+      }
+
+      function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function checkAnswers() {
+        var ascendingOrderInput =
+          document.getElementById("ascendingOrder").value;
+        var descendingOrderInput =
+          document.getElementById("descendingOrder").value;
+        var resultDiv = document.getElementById("result");
+        var correct = true;
+
+        // Correct order of ascending numbers
+        var correctAscendingOrder = [...Array(50).keys()]
+          .map((x) => ++x)
+          .join(",");
+        // Correct order of descending numbers
+        var correctDescendingOrder = [...Array(50).keys()]
+          .map((x) => 50 - x + 1)
+          .join(",");
+
+        if (ascendingOrderInput !== correctAscendingOrder) {
+          resultDiv.innerHTML = "Order of Ascending Numbers is incorrect.";
+          correct = false;
+        }
+        if (descendingOrderInput !== correctDescendingOrder) {
+          resultDiv.innerHTML +=
+            "<br>Order of Descending Numbers is incorrect.";
+          correct = false;
+        }
+
+        if (correct) {
+          resultDiv.innerHTML = "All orders are correct!";
+        }
+
+        // Show the result and hide the "Submit" button
+        document.getElementById("result").style.display = "block";
+        document.querySelector('button[type="button"]').style.display = "none";
+      }
+    </script>
+  </body>
+</html>
